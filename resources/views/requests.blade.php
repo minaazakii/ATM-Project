@@ -26,7 +26,7 @@
                                   </div>
                             </div>
                             <div class="text-white col-2 border">
-                               Attend At: {{ $attendance->attended_at }}
+                                Attend At: {{ $attendance->attended_at }}
 
                             </div>
 
@@ -45,37 +45,32 @@
                             <thead>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Role</th>
-                                @if(auth()->user()->isAdmin == '1')
-                                <th></th>
-                                @endif
+                                <th>Attended At</th>
+                                <th>status of Request</th>
+
                             </thead>
-                            @foreach ($users as $index => $user )
+                            @foreach ($requests as $index => $request )
+                            @if(auth()->user()->isAdmin == '1' && $request->user_id == auth()->id())
+                            @continue
+                            @endif
+                            @if(auth()->id() == $request->user_id || auth()->user()->isAdmin =='1')
                             <tr>
-                                @if($user->id == auth()->id())
-                                @continue
-                                @endif
-                                <td>{{ $index+1  }} </td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                @if($user->isAdmin == '0')
-                                <td>User</td>
+                                <td>{{ $index+1 }}</td>
+                                <td>{{ $request->user->name }}</td>
+                                <td>{{ $request->attended_at }}</td>
+                                @if( $request->requestAccepted == null)
+                                <td>No Requests Sent</td>
+                                @elseif($request->requestAccepted == 0 )
+                                <td class="text-warning">Still Pending</td>
+                                @elseif($request->requestAccepted == 1)
+                                <td class="text-success">Accepted</td>
                                 @else
-                                <td>Admin</td>
+                                <td class="text-danger">Rejected</td>
                                 @endif
-                                @if(auth()->user()->isAdmin == '1')
-                                <td>
-                                    <a href="{{ route('user.edit',$user) }}"  class="text-warning">Edit</a>
-                                    <form action="{{ route('user.destroy',$user) }}" method="POST">
-                                        @csrf
-                                        <button style="background-color: transparent; border:0px; color:red;" class="">Remove</button>
-                                    </form>
                                 </td>
-                                @endif
+
                             </tr>
+                            @endif
                             @endforeach
                         </table>
                     </div>

@@ -1,4 +1,4 @@
-function realtimeClock(){
+function Clock(){
     var rtclock = new Date();
 
     var hours = rtclock.getHours();
@@ -23,7 +23,7 @@ function realtimeClock(){
 
     document.getElementById('clock').innerHTML = hours + " : " + mins + " : " + secs + " " + amPm + "<br><span>" + day + " " + MonthName[month] + " " + year + "</span>"; 
     
-    var t = setTimeout(realtimeClock,500);
+    var t = setTimeout(Clock,500);
 
 }
 
@@ -103,4 +103,26 @@ function realtimeClock(){
     
     var t = setTimeout(realtimeClock,500);
 
+}
+
+function change(str){
+    if (str == "login"){
+        document.getElementById("login").style.left = "-700px";
+        /* document.getElementById("login").style.display = "none";
+        document.getElementById("register").style.display = "block";  */
+        document.getElementById("register").style.left = "0";
+
+
+    }
+    else {
+        document.getElementById("register").style.left = "700px";
+
+        /* document.getElementById("register").style.display = "none";
+
+        document.getElementById("login").style.display = "block"; */
+        document.getElementById("login").style.left = "0";
+
+
+
+    }
 }

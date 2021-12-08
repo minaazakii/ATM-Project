@@ -5,7 +5,7 @@
 }
 /* Index HTML */
 body{
-    background-color:#eee ;
+    background-color: #212121 ;
 }
 .header{
     border-bottom: 1px solid #BDBDBD;
@@ -62,38 +62,49 @@ body{
 
 }
 .login{
+    overflow-y: visible;
+    overflow-x: hidden;
+}
+
+#login{
     text-align: center;
-/*     background-color: #BDBDBD;
- */    border-radius: 5px;
-    height: 300px;
+    border-radius: 5px;
+    position: absolute;
     padding-top: 30px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+    transition: 0.4s;
 
 
 }
-.login p{
+
+#login h3{
     font-size: 34px;
     color: #424242;
     font-weight:400 ;
+    text-align: center;
 }
-.login p span{
+#login h3 span{
     position: relative;
     top: 3px;
 }
 
-.login form{
-    width: 80%;
+#login form{
+    width: 100%;
     margin: 5px auto;
 
 }
-.login form input {
+#login form input {
     display: block;
-    width: 80%;
+    width: 90%;
     margin: 10px auto;
-    background-color: transparent;
+    background-color: #bdbdbd62;
     border: 4px solid #BDBDBD;
     color: #424242;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 3px;
+    border-radius: 10px;
     text-align: center;
     font-size: 22px;
     font-weight: 400;
@@ -102,25 +113,117 @@ body{
 
 
 }
-.login form input:focus{
+#login form input:focus{
     outline: 0px solid #424242;
     border: 4px solid #424242;
     transition: 0.3s;
 }
 
-.login form input[type=submit]{
+#login form input[type=submit]{
     width: 25%;
-    background-color: transparent;
+    background-color: #bdbdbd62;
     color: #424242;
     font-size: 18px;
     border: 2px solid #616161;
     outline: 0 solid #424242;
 
 }
-.login form input[type=submit]:hover{
+#login form input[type=submit]:hover{
     background-color: #424242;
     color: #FAFAFA;
     cursor: pointer;
+}
+#login button{
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #212121;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+#login button:hover{
+    color: #424242;
+    transition: 0.3s;
+}
+#login button:focus{
+    outline-width: 0px;
+}
+#register{
+    display: block;
+    width: 100%;
+    transition: 0.5s;
+    position: relative  ;
+    top: 0;
+    transition: 0.4s;
+    left: 700px;
+}
+#register h3{
+    font-size: 34px;
+    color: #424242;
+    font-weight:400 ;
+    text-align: center;
+}
+#register h3 span{
+    position: relative;
+    top: 3px;
+}
+
+#register form{
+    width: 100%;
+    margin: 5px auto;
+
+}
+#register form input {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    background-color: #bdbdbd62;
+    border: 4px solid #BDBDBD;
+    color: #424242;
+    padding: 3px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 400;
+    transition: 0.3s;
+    outline: 0px solid #EEEEEE;
+
+
+}
+#register form input:focus{
+    outline: 0px solid #424242;
+    border: 4px solid #424242;
+    transition: 0.3s;
+}
+
+#register form input[type=submit]{
+    width: 25%;
+    background-color: #bdbdbd62;
+    color: #424242;
+    font-size: 18px;
+    border: 2px solid #616161;
+    outline: 0 solid #424242;
+
+}
+#register form input[type=submit]:hover{
+    background-color: #424242;
+    color: #FAFAFA;
+    cursor: pointer;
+}
+#register button{
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #212121;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+#register button:hover{
+    color: #424242;
+    transition: 0.3s;
+}
+#register button:focus{
+    outline-width: 0px;
 }
 
 @media  screen and (max-width: 1200px) {
@@ -139,10 +242,13 @@ body{
 
   @media screen and (max-width : 575px){
     .content{
-        margin-top: 0;
+        margin-top: 60px;
     }
     .header {
         text-align: center;
+    }
+    .time{
+        display: none;
     }
   }
 
@@ -520,6 +626,74 @@ body{
     color: #fff;
 }
 
+
+#table table{
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+
+}
+#table table thead {
+    background-color: #BDBDBD;
+
+}
+#table table thead th:first-child{
+    border-left: 1px solid #616161;
+
+}
+#table table thead th{
+    padding: 5px;
+    border-top: 1px solid #616161;
+    font-size: 18px;
+    border-right: 1px solid #616161;
+}
+#table table td:first-child{
+    border-left: 1px solid #616161;
+
+}
+#table table td{
+    padding: 5px;
+    border-bottom: 1px solid #616161;
+    border-right: 1px solid #616161;
+}
+#table table tr:nth-child(even){
+    background-color: #424242;
+
+}
+#table table td button{
+    width: 12%;
+    height: 10%;
+
+}
+#table table td button:nth-child(1){
+    background-color: rgb(38, 111, 221);
+    border : 1px solid rgb(38, 111, 221);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#table table td button:nth-child(1):hover{
+    background-color: rgb(25, 69, 136);
+    border : 1px solid rgb(25, 69, 136);
+    transition: 0.2s;
+
+
+}
+#table table td button:nth-child(2){
+    background-color: #dd1010;
+    border : 1px solid #dd1010;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#table table td button:nth-child(2):hover{
+    background-color: #b80d0d;
+    border : 1px solid #b80d0d;
+    transition: 0.2s;
+
+}
 
 
 

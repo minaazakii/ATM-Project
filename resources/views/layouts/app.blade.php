@@ -16,7 +16,7 @@
     <script src="{{ asset('/assets/js/jq.min.js') }}"></script>
 </head>
 
-<body onload="realtimeClock()">
+<body onload="Clock()">
 
 @yield('content')
 

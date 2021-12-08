@@ -19,6 +19,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->isAdmin = '0';
 
         $user->save();
 
@@ -43,6 +44,11 @@ class UserController extends Controller
 
     public function logout()
     {
+        if(auth()->user()->isAdmin == 1)
+        {
+            Auth::logout();
+            return redirect()->route('login.index');
+        }
         $time = Carbon::now()->toDateTimeString();
         $currentTime = Carbon::parse($time)->setTimezone('egypt')->format('d/M/Y , h:i');
         $attendance = Attendance::where('user_id', auth()->id())->get()->last();
@@ -66,5 +72,30 @@ class UserController extends Controller
         $attendance->requestAccepted = '0';
         $attendance->save();
         return redirect()->route('dashboard.index')->with('message','Your Request is Sent');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('dashboard.index');
+    }
+
+    public function edit(User $user)
+    {
+        $attendance = Attendance::where('user_id', auth()->id())->get()->last();
+        return view('editProfile',
+        [
+            'user'=> $user,
+            'attendance'=>$attendance
+        ]);
+    }
+
+    public function update(Request $request , User $user)
+    {
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+        return redirect()->route('dashboard.index');
     }
 }
