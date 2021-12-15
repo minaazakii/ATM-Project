@@ -16,7 +16,11 @@
         </div>
         <div class="col  p-0  ">
             <p class="mt-4">
-               Name : <strong class="text-success">{{ auth()->user()->name }}</strong>
+                @if(auth()->user()->isAdmin != '1')
+                    Name : <a href="{{ route('user.profile',auth()->user()) }}"><strong class="text-success">{{ auth()->user()->name }}</a></strong>
+                @else
+                    Name :<strong class="text-success">{{ auth()->user()->name }}</strong>
+                @endif
             </p>
             <p>
                 {{ auth()->user()->email }}
@@ -57,6 +61,7 @@
 
 
             </li>
+
             <li class=" p-0" >
                 <b ></b>
                 <b ></b>
@@ -70,18 +75,6 @@
 
                     </div>
                 </a>
-
-                <a href="" class="row  p-0  ">
-                    <div class="col-3 p-0">
-                        <span class="material-icons "> groups</span>
-
-                    </div>
-                    <div class="col-9 ">
-                        <h2>Notifications</h2>
-
-                    </div>
-                </a>
-
 
             </li>
 

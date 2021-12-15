@@ -98,4 +98,31 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('dashboard.index');
     }
+
+    public function leaveRequestResponse(Attendance $attendRequest , Request $request)
+    {
+       if($request->response == '0')
+       {
+           $attendRequest->requestAccepted = 'no';
+           $attendRequest->save();
+       }
+       else
+       {
+        $attendRequest->requestAccepted = '1';
+        $attendRequest->save();
+       }
+       return redirect()->route('dashboard.showRequest');
+    }
+
+    public function profile(User $user)
+    {
+        $attendance = Attendance::where('user_id', auth()->id())->get()->last();
+        $attendances = Attendance::where('user_id',$user->id)->get();
+        return view('profile',
+        [
+            'user'=> $user,
+            'attendance'=>$attendance,
+            'attendances' => $attendances
+        ]);
+    }
 }

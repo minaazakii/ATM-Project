@@ -30,4 +30,25 @@ class DashboardController extends Controller
             'requests'=>$requests
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $allAttendances = Attendance::all();
+        $attendance = Attendance::where('user_id', auth()->id())->get()->last();
+        $peopleAttended = [];
+
+        foreach ($allAttendances as $attendance)
+        {
+            if($attendance->created_at->toDateString() == $request->date)
+            {
+                $peopleAttended [] = $attendance;
+            }
+        }
+
+        return view('attendanceSearch',
+        [
+            'attandences' =>$peopleAttended,
+            'attendance'=>$attendance,
+        ]);
+    }
 }
