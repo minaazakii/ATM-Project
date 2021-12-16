@@ -35,7 +35,7 @@
                     <div class="col-12 mt-3    " id="table">
                         <table >
                             <thead>
-                                <th>#</th>
+                                <th>Days Count.</th>
                                 <th>attended_at</th>
                             </thead>
                             @foreach ($attendances as $index => $attendant )

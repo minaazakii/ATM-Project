@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absent;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Attendance;
@@ -49,6 +50,19 @@ class DashboardController extends Controller
         [
             'attandences' =>$peopleAttended,
             'attendance'=>$attendance,
+        ]);
+
+
+    }
+
+    public function showAbsent()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())->get()->last();
+        $absents = Absent::all();
+        return view('absents',
+        [
+            'attendance' =>$attendance,
+            'absents' =>$absents,
         ]);
     }
 }

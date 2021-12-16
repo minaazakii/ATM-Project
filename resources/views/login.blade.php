@@ -18,7 +18,7 @@
                         Sign In Now<!-- <span class="material-icons ">login</span> -->
                     </h3>
                     @if(session('error'))
-                       <div class="alert-danger rounded">{{ session('error') }}</div>
+                       <div id="message" class="alert-danger rounded">{{ session('error') }}</div>
                     @endif
                     <form action="{{ route('user.login') }}" method="POST" class="">
                         @csrf

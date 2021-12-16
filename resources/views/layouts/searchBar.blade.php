@@ -21,7 +21,7 @@
     </div>
 
     <div class="text-white col-2 border">
-        Attend At: {{ $attendance->attended_at }}
+        Attend At: {{ Carbon\Carbon::parse($attendance->created_at->toDateTimeString())->setTimezone('egypt')->format('Y/m/d - (D), h:i') }}
 
     </div>
 

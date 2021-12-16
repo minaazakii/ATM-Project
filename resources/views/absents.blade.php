@@ -13,10 +13,6 @@
 
                         @include('layouts.searchBar')
 
-                        @if(session('error'))
-                        <p id="message" class="text-center text-danger">{{ session('error') }}</p>
-                        @endif
-
                         @if(session('message'))
                         <p id="message" class="text-center text-success">{{ session('message') }}</p>
                         @endif
@@ -29,40 +25,24 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
+                                <th>Absent At</th>
                                 <th>Role</th>
-                                @if(auth()->user()->isAdmin == '1')
-                                <th></th>
-                                @endif
                             </thead>
-                            @foreach ($users as $index => $user )
+                            @foreach ($absents as $index => $absent )
                             <tr>
-                                @if($user->id == auth()->id())
-                                @continue
-                                @endif
                                 <td>{{ $index+1  }} </td>
                                 <td>
-                                    @if(auth()->user()->isAdmin=='1')
-                                        <a href="{{ route('user.profile',$user) }}">{{ $user->name }}</a>
-                                    @else
-                                        {{ $user->name }}
-                                    @endif
+                                    <a href="{{ route('user.profile',$absent->user()) }}">{{ $absent->user()->name }}</a>
                                 </td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                @if($user->isAdmin == '0')
+                                <td>{{ $absent->user()->email }}</td>
+                                <td>{{ $absent->user()->phone }}</td>
+                                <td>{{ $absent->absent_at }}</td>
+                                @if($absent->user()->isAdmin == '0')
                                 <td>User</td>
                                 @else
                                 <td>Admin</td>
                                 @endif
-                                @if(auth()->user()->isAdmin == '1')
-                                <td>
-                                    <a href="{{ route('user.edit',$user) }}"  class="text-warning">Edit</a>
-                                    <form action="{{ route('user.destroy',$user) }}" method="POST">
-                                        @csrf
-                                        <button style="background-color: transparent; border:0px; color:red;" class="">Remove</button>
-                                    </form>
-                                </td>
-                                @endif
+
                             </tr>
                             @endforeach
                         </table>

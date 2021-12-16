@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absent;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Attendance;
@@ -33,10 +34,10 @@ class UserController extends Controller
         {
             return redirect()->route('login.index')->with('error','Wrong Email or Password');
         }
-        $time = Carbon::now()->toDateTimeString();
-        $currentTime = Carbon::parse($time)->setTimezone('egypt')->format('d/M/Y , h:i');
+        $time = Carbon::now()->toDateString();
+        //$currentTime = Carbon::parse($time)->setTimezone('egypt')->format('d/M/Y , h:i');
         $attendance = new Attendance();
-        $attendance->attended_at = $currentTime;
+        $attendance->attended_at =$time;
         $attendance->user_id = auth()->id();
         $attendance->save();
         return redirect()->route('dashboard.index');
@@ -54,7 +55,7 @@ class UserController extends Controller
         $attendance = Attendance::where('user_id', auth()->id())->get()->last();
         if($attendance->requestAccepted == null || $attendance->requestAccepted == '0')
         {
-            return redirect()->route('dashboard.index')->with('error',"You Haven't Sent a Leave Request or you Request is Still Pending");
+            return redirect()->route('dashboard.index')->with('error',"Your Haven't Sent a Leave Request or you Request is Still Pending");
         }
         elseif($attendance->requestAccepted == 'no')
         {
@@ -124,5 +125,24 @@ class UserController extends Controller
             'attendance'=>$attendance,
             'attendances' => $attendances
         ]);
+    }
+
+    public function absent()
+    {
+        $todayDate = Carbon::now()->toDateString();
+        $users = User::all();
+        $absents = [];
+        foreach($users as $user)
+        {
+            if(Attendance::where([['user_id',$user->id],['attended_at',$todayDate]])->doesntExist())
+            {
+                $absents[]  = $user;
+                $absent = new Absent();
+                $absent->user_id = $user->id;
+                $absent->absent_at = $todayDate;
+                $absent->save();
+            }
+        }
+        return redirect()->route('dashboard.showAbsent')->with('message','Absent Taken Successfully');
     }
 }

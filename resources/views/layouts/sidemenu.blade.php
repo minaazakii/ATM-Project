@@ -78,6 +78,46 @@
 
             </li>
 
+            @if(auth()->user()->isAdmin == '1')
+            <li class=" p-0">
+                <b ></b>
+                <b ></b>
+                <a class=" ml-0 " style="" >
+                <form action="{{ route('absent') }}" method="POST">
+                    @csrf
+                    <button class="row ml-2 p-0  " style="background-color: transparent; border:0px; " >
+
+                    <div class="col-3 p-0">
+                        <span class="material-icons "> groups</span>
+
+                    </div>
+                    <div class="col-9 ">
+                        <h5 >Take Today's Absent</h5>
+                    </div>
+                </button>
+            </a>
+            </form>
+            </li>
+            @endif
+
+            @if(auth()->user()->isAdmin == '1')
+
+            <li class=" p-0" >
+                <b ></b>
+                <b ></b>
+                <a href="{{ route('dashboard.showAbsent') }}" class="row  p-0  ">
+                    <div class="col-3 p-0">
+                        <span class="material-icons "> groups</span>
+
+                    </div>
+                    <div class="col-9 ">
+                        <h2 >Show Absent </h2>
+
+                    </div>
+                </a>
+
+            </li>
+            @endif
         </ul>
     </div>
 

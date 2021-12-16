@@ -12,7 +12,7 @@
                     <div class="col-12  p-0  ">
 
                         @include('layouts.searchBar')
-                        
+
                         @if(session('error'))
                         <p class="text-center text-danger">{{ session('error') }}</p>
                         @endif
@@ -34,7 +34,7 @@
                                 @endif
                             </thead>
                             @foreach ($requests as $index => $request )
-                            @if(auth()->user()->isAdmin == '1' && $request->user_id == auth()->id())
+                            @if(auth()->user()->isAdmin == '1' && $request->user_id == auth()->id() || $request->requestAccepted == null)
                             @continue
                             @endif
                             @if(auth()->id() == $request->user_id || auth()->user()->isAdmin =='1')
